@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'me.azulflame.trainmarch.dmhelper'
+mainClassName = 'me.azulflame.trainmarch.dmhelper.Main'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.dv8tion:JDA:5.0.0-alpha.10'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'me.azulflame.trainmarch.dmhelper.Main'
+        )
+    }
+    from {
+        duplicatesStrategy 'INCLUDE'
+        configurations.runtimeClasspath.collect {it.isDirectory() ? it : zipTree(it) }
+    }
+}
