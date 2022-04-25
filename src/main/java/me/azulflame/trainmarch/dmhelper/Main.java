@@ -88,6 +88,8 @@ public class Main extends ListenerAdapter {
             } finally {
                 event.getChannel().sendMessage(message).queue();
             }
+        } else if (msg.getContentRaw().startsWith("!reward")) {
+            event.getChannel().sendMessage("Did you mean `!rewards`").queue();
         }
     }
 
