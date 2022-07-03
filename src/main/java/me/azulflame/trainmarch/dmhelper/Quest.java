@@ -5,10 +5,10 @@ import java.util.regex.Pattern;
 
 public class Quest {
     // Difficulty constants, indexes for lookup arrays
-    private static final int VERY_DEADLY = 0;
-    private static final int DEADLY = 1;
-    private static final int HARD = 2;
-    private static final int MEDIUM = 3;
+    public static final int VERY_DEADLY = 0;
+    public static final int DEADLY = 1;
+    public static final int HARD = 2;
+    public static final int MEDIUM = 3;
 
     private int difficulty;
     private double length;
@@ -106,7 +106,7 @@ public class Quest {
                 + Math.round(dt);
     }
 
-    private String decodeDifficulty(int difficulty) {
+    public static String decodeDifficulty(int difficulty) {
         String[] x = { "very deadly", "deadly", "hard", "medium" };
         return x[difficulty];
     }
