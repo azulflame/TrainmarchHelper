@@ -1,6 +1,6 @@
 # TrainmarchHelper
 
-to package the bot for use, run the following gradle tasks:
+to package the bot for use, run the following gradle task:
 
 ```
 gradle clean build jar
