@@ -131,5 +131,11 @@ public class Main extends ListenerAdapter {
                     + event.getAuthor().getId() + " ("
                     + event.getAuthor().getAsMention() + " )");
         }
+        if (command == Commands.SCROLLS) {
+            event.getMessage().reply(Scrolls.getMinimumItems(text)).queue();
+            log.info(Instant.now().atZone(ZoneOffset.UTC).toString() + "Scroll requirements calculated by "
+                    + event.getAuthor().getId() + " ("
+                    + event.getAuthor().getAsMention() + " )");
+        }
     }
 }

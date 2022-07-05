@@ -13,6 +13,7 @@ public class Commands {
     public static final int DEATH_EFFECTS = 4;
     public static final int TIME_CALCULATOR = 5;
     public static final int MINIMUM_ITEMS = 6;
+    public static final int SCROLLS = 7;
 
     private static final Map<String, Integer> key = new HashMap<String, Integer>();
 
@@ -46,6 +47,9 @@ public class Commands {
                     }
                     if (arr[0].equals("items")) {
                         key.put(arr[1], MINIMUM_ITEMS);
+                    }
+                    if (arr[0].equals("scrolls")) {
+                        key.put(arr[1], SCROLLS);
                     }
                 }
             }
