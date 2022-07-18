@@ -6,16 +6,16 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class DeathEffects {
-    private static List<String> deathEffects;
+public class RandomSelector {
+    private List<String> choices;
 
-    public static void load() {
+    public void load(String filename) {
         try {
-            deathEffects = new ArrayList<String>();
-            File f = new File("death_effects.txt");
+            choices = new ArrayList<String>();
+            File f = new File(filename);
             Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
-                deathEffects.add(s.nextLine());
+                choices.add(s.nextLine());
             }
             s.close();
         } catch (Exception e) {
@@ -23,9 +23,9 @@ public class DeathEffects {
         }
     }
 
-    public static String get() {
+    public String get() {
         Random r = new Random();
-        int rand = r.nextInt(deathEffects.size());
-        return deathEffects.get(rand);
+        int rand = r.nextInt(choices.size());
+        return choices.get(rand);
     }
 }
