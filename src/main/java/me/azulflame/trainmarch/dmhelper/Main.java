@@ -127,6 +127,53 @@ public class Main extends ListenerAdapter {
                     + event.getAuthor().getId() + " ("
                     + event.getAuthor().getAsMention() + " )");
         }
+        if (command == Commands.SHOP) {
+            String toReply = "";
+            if (text.equals("!shop"))
+            {
+                toReply = Shop.getShops();
+            }
+            else {
+                String[] messageText = text.split(" ");
+                if (messageText.length == 2) {
+                    if (messageText[1].equals("fullreset")) {
+                        Shop.resetAll();
+                    }
+                    if (messageText[1].equals("help")) {
+                        toReply = "Possible subcommands:\nhelp: shows this dialog\nanything else: shows the inventory for that shop (if it exists)";
+                    } else {
+                        toReply = Shop.getShop(messageText[1]);
+                    }
+                }
+                if (messageText.length > 2) {
+                    List<String> secondary = new ArrayList<>(Arrays.stream(messageText).toList());
+                    secondary.remove(0);
+                    secondary.remove(0);
+                    String secondaryText = String.join(" ", secondary);
+                    String secondaryExact = secondary.remove(0);
+                    String tertiary = String.join(" ", secondary);
+                    if (messageText[1].equals("reset")) {
+                        if (Shop.reset(secondaryText)) {
+                            toReply = "Shop reset: " + secondaryText;
+                        } else {
+                            toReply = "Shop \"" + secondaryText + "\" not found";
+                        }
+                    }
+                    if (messageText[1].equals("add")) {
+                        Shop.add(secondaryExact, tertiary.split("\n"));
+                        toReply = Shop.getShop(secondaryExact);
+                    }
+                    if (messageText[1].equals("sell")) {
+                        if (Shop.sell(secondaryExact, tertiary)) {
+                            toReply = tertiary + " sold from the " + secondaryExact;
+                        } else {
+                            toReply = "Unable to sell \"" + tertiary + "\" from shop \"" + secondaryExact + "\". Please check spelling and item availability";
+                        }
+                    }
+                }
+            }
+            event.getMessage().reply(toReply).queue();
+        }
         // check if there's a list that matches the command
         if (text.length() > 1) {
             if (text.equals("!curse 5"))
