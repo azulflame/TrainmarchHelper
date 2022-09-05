@@ -26,7 +26,7 @@ public class ListCommand extends ListenerAdapter {
         }
         if (event.getName().equals("reload"))
         {
-            event.deferReply().queue();
+            event.deferReply().setEphemeral(true).queue();
             try {
                 Lists.load();
             } catch (IOException e) {

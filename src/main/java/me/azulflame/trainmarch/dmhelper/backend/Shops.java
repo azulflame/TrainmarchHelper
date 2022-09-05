@@ -17,6 +17,7 @@ public class Shops {
         }
         for(String item : items)
             shops.get(shop).add(item);
+        DatabaseManager.insertItem(shop, items);
     }
 
     public static Set<String> getShops() {
@@ -31,6 +32,7 @@ public class Shops {
 
     public static boolean sell(String shop, String item)
     {
+        DatabaseManager.deleteItem(shop, item);
         if (shops.containsKey(shop))
             return shops.get(shop).remove(item);
         return false;

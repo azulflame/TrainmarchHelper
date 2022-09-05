@@ -30,12 +30,12 @@ public class ShopCommand extends ListenerAdapter {
         }
         if (command.equals("shop") && subcommand != null) {
             if (!event.getChannel().getId().equals("945066980577267752") && !event.getChannel().getId().equals("1015883484545433685")) {
-                event.reply("This must be run in the staff-bots channel").setEphemeral(true).queue();
+                event.reply("This must be run in the shop-keepers channel").setEphemeral(true).queue();
             } else {
                 if (subcommand.equals("add")) {
                     String shop = event.getOption("shop").getAsString();
                     Shops.add(shop, Arrays.stream(event.getOption("items").getAsString().trim().split("\\s\\s+")).toList());
-                    event.reply("Inventory for the " + shop + "shop:\n" + String.join("\n", Shops.getItems(shop))).setEphemeral(true).queue();
+                    event.reply("Inventory for the " + shop + " shop:\n" + String.join("\n", Shops.getItems(shop))).setEphemeral(false).queue();
                 }
                 if (subcommand.equals("delete")) {
                     if (Shops.getShops().size() == 0) {
@@ -44,7 +44,7 @@ public class ShopCommand extends ListenerAdapter {
                         SelectMenu menu = SelectMenu.create("reset-shop").addOptions(Shops.getShops().stream().map(x -> {
                             return SelectOption.of(x, x);
                         }).collect(Collectors.toList())).build();
-                        event.reply("Please select a shop").setEphemeral(true).addActionRow(menu).queue();
+                        event.reply("Please select a shop").setEphemeral(false).addActionRow(menu).queue();
                     }
                 }
                 if (subcommand.equals("sell")) {
@@ -54,7 +54,7 @@ public class ShopCommand extends ListenerAdapter {
                         SelectMenu menu = SelectMenu.create("sell-shop").addOptions(Shops.getShops().stream().map(x -> {
                             return SelectOption.of(x, x);
                         }).collect(Collectors.toList())).build();
-                        event.reply("Please select a shop").setEphemeral(true).addActionRow(menu).queue();
+                        event.reply("Please select a shop").setEphemeral(false).addActionRow(menu).queue();
                     }
                 }
             }

@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import javax.security.auth.login.LoginException;
 
+import me.azulflame.trainmarch.dmhelper.backend.DatabaseManager;
 import me.azulflame.trainmarch.dmhelper.backend.Lists;
 import me.azulflame.trainmarch.dmhelper.listeners.*;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -45,6 +46,7 @@ public class Main {
             }
             token = args[0];
         }
+        DatabaseManager.loadItems();
         try {
             JDABuilder.createLight(token)
                     .addEventListeners(new CommandManager(), new ItemCommand(), new ListCommand(), new RewardCommand(), new ScrollsCommand(), new ShopCommand())
