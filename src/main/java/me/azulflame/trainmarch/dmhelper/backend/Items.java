@@ -12,63 +12,87 @@ public class Items {
     private static String rare = "Rare magic item";
     private static String veryRare = "Very rare magic item";
 
-    private static String[] minItem = { noMin, nonMagic, common, uncommon, rare, veryRare };
+    private static String[] minItem = {noMin, nonMagic, common, uncommon, rare, veryRare};
 
     private static Integer[][] t1 = {
             {
-                    0, 1, 1, 1, 1, 1, 2, 2, 2, 2
+                    1, 1, 1, 1, 2, 2, 2, 2, 2, 2    // TPK Likely
             },
             {
-                    0, 0, 1, 1, 1, 1, 1, 2, 2, 2
+                    0, 1, 1, 1, 1, 1, 2, 2, 2, 2    // Very Deadly
             },
             {
-                    0, 0, 0, 1, 1, 1, 1, 1, 2, 2
+                    0, 0, 1, 1, 1, 1, 1, 2, 2, 2    // Deadly
             },
             {
-                    0, 0, 0, 0, 1, 1, 1, 1, 1, 2
+                    0, 0, 0, 1, 1, 1, 1, 1, 2, 2    // Hard
+            },
+            {
+                    0, 0, 0, 0, 1, 1, 1, 1, 1, 2    // Medium
+            },
+            {
+                    0, 0, 0, 0, 0, 0, 1, 1, 1, 1    // Easy
             }
     };
     private static Integer[][] t2 = {
             {
-                    1, 2, 2, 2, 3, 3, 3, 3, 3, 3
+                    2, 2, 3, 3, 3, 3, 3, 3, 3, 3    // TPK Likely
             },
             {
-                    1, 1, 2, 2, 2, 3, 3, 3, 3, 3
+                    1, 2, 2, 2, 3, 3, 3, 3, 3, 3    // Very Deadly
             },
             {
-                    1, 1, 1, 2, 2, 2, 3, 3, 3, 3
+                    1, 1, 2, 2, 2, 3, 3, 3, 3, 3    // Deadly
             },
             {
-                    1, 1, 1, 1, 2, 2, 2, 3, 3, 3
+                    1, 1, 1, 2, 2, 2, 3, 3, 3, 3    // Hard
+            },
+            {
+                    1, 1, 1, 1, 2, 2, 2, 3, 3, 3    // Medium
+            },
+            {
+                    0, 1, 1, 1, 1, 1, 2, 2, 2, 2    // Easy
             }
     };
     private static Integer[][] t3 = {
             {
-                    2, 3, 3, 3, 3, 4, 4, 4, 4, 4
+                    3, 3, 3, 3, 4, 4, 4, 4, 4, 4    // TPK Likely
             },
             {
-                    2, 3, 3, 3, 3, 3, 4, 4, 4, 4
+                    2, 3, 3, 3, 3, 4, 4, 4, 4, 4    // Very Deadly
             },
             {
-                    2, 2, 3, 3, 3, 3, 3, 4, 4, 4
+                    2, 3, 3, 3, 3, 3, 4, 4, 4, 4    // Deadly
             },
             {
-                    2, 2, 2, 3, 3, 3, 3, 3, 4, 4
+                    2, 2, 3, 3, 3, 3, 3, 4, 4, 4    // Hard
+            },
+            {
+                    2, 2, 2, 3, 3, 3, 3, 3, 4, 4    // Medium
+            },
+            {
+                    1, 2, 2, 2, 2, 2, 3, 3, 3, 3    // Easy
             }
     };
 
     private static Integer[][] t4 = {
             {
-                    3, 4, 4, 4, 4, 5, 5, 5, 5, 5
+                    4, 4, 4, 4, 5, 5, 5, 5, 5, 5    // TPK Likely
             },
             {
-                    3, 3, 4, 4, 4, 4, 5, 5, 5, 5
+                    3, 4, 4, 4, 4, 5, 5, 5, 5, 5    // Very Deadly
             },
             {
-                    3, 3, 3, 4, 4, 4, 4, 5, 5, 5
+                    3, 3, 4, 4, 4, 4, 5, 5, 5, 5    // Deadly
             },
             {
-                    3, 3, 3, 3, 4, 4, 4, 4, 5, 5
+                    3, 3, 3, 4, 4, 4, 4, 5, 5, 5    // Hard
+            },
+            {
+                    3, 3, 3, 3, 4, 4, 4, 4, 5, 5    // Medium
+            },
+            {
+                    2, 3, 3, 3, 3, 3, 4, 4, 4, 4    // Easy
             }
     };
 

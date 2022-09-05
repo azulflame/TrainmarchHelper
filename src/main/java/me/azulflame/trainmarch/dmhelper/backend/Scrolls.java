@@ -10,8 +10,13 @@ public class Scrolls {
 
         Random r = new Random();
 
-        int[][] odds = { { 0, 0, 0, 0 }, { 50, 40, 30, 20 }, { 70, 60, 50, 40 }, { 90, 90, 80, 70 },
-                { 100, 100, 100, 90 } };
+        int[] odds = {
+                100,    // TPK likely
+                80,     // Very Deadly
+                60,     // Deadly
+                40,     // Hard
+                20,     // Medium
+                0};     // Easy
 
         if (tier < 1 || tier > 4 || players < 0) {
             return "Unable to find needed information, please provide the number of wizards, tier, and difficulty";
@@ -22,7 +27,7 @@ public class Scrolls {
                 + " quest:\n";
 
         for (int i = 0; i < players; i++) {
-            if (r.nextInt(100) < odds[tier][difficulty.getValue()]) {
+            if (r.nextInt(100) < odds[difficulty.getValue()]) {
                 scrolls++;
             }
         }

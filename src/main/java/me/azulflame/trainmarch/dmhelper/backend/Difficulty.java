@@ -1,12 +1,12 @@
 package me.azulflame.trainmarch.dmhelper.backend;
 
 public enum Difficulty {
-    EASY(4, "easy"),
-    MEDIUM(3, "medium"),
-    HARD(2, "hard"),
-    DEADLY(1,"deadly"),
-    VERY_DEADLY(0, "very deadly"),
-    TPK_POSSIBLE(5,"TPK possible");
+    EASY(5, "easy"),
+    MEDIUM(4, "medium"),
+    HARD(3, "hard"),
+    DEADLY(2,"deadly"),
+    VERY_DEADLY(1, "very deadly"),
+    TPK_POSSIBLE(0,"TPK possible");
 
     private final int value;
     private final String name;
