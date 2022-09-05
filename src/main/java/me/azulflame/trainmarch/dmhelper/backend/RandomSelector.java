@@ -1,6 +1,7 @@
-package me.azulflame.trainmarch.dmhelper;
+package me.azulflame.trainmarch.dmhelper.backend;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,9 +14,11 @@ public class RandomSelector {
         try {
             choices = new ArrayList<String>();
             File f = new File(filename);
-            Scanner s = new Scanner(f);
+            Scanner s = new Scanner(new FileInputStream(f));
             while (s.hasNextLine()) {
-                choices.add(s.nextLine());
+                String line = s.nextLine();
+                if (line.length() > 0)
+                    choices.add(line);
             }
             s.close();
         } catch (Exception e) {
