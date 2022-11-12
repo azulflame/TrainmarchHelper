@@ -1,4 +1,4 @@
-package me.azulflame.trainmarch.dmhelper.backend;
+package me.azulflame.trainmarch.dmhelper.service;
 
 
 import java.util.Random;
@@ -11,8 +11,7 @@ public class Scrolls {
         Random r = new Random();
 
         int[] odds = {
-                100,    // TPK likely
-                80,     // Very Deadly
+                80,     // TPK likely
                 60,     // Deadly
                 40,     // Hard
                 20,     // Medium

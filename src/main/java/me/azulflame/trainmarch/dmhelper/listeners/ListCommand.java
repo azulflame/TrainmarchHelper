@@ -1,6 +1,6 @@
 package me.azulflame.trainmarch.dmhelper.listeners;
 
-import me.azulflame.trainmarch.dmhelper.backend.Lists;
+import me.azulflame.trainmarch.dmhelper.service.Lists;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -42,8 +42,9 @@ public class ListCommand extends ListenerAdapter {
         if (event.getName().equals("random") && event.getFocusedOption().getName().equals("list"))
         {
             List<Command.Choice> options = Lists.getCommands().stream()
-                    .filter(word -> word.startsWith(event.getFocusedOption().getValue()))
+                    .filter(word -> word.toLowerCase().contains(event.getFocusedOption().getValue().toLowerCase()))
                     .map(word -> new Command.Choice(word, word))
+                    .limit(25)
                     .toList();
             event.replyChoices(options).queue();
         }

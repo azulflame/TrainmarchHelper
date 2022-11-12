@@ -1,6 +1,6 @@
 package me.azulflame.trainmarch.dmhelper.listeners;
 
-import me.azulflame.trainmarch.dmhelper.backend.Difficulty;
+import me.azulflame.trainmarch.dmhelper.service.Difficulty;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class RewardCommand extends ListenerAdapter {
@@ -26,13 +26,13 @@ public class RewardCommand extends ListenerAdapter {
         double dt = Math.round(length / 2);
 
         // Lookup tables
-        int[] vcGoldMax = {35, 28, 25, 20, 12, 6};
-        int[] vcGoldMin = {30, 26, 21, 15, 12, 6};
-        int[] txtGoldMax = {33, 28, 25, 15, 0, -2};
-        int[] txtGoldMin = {29, 26, 20, 15, 0, -2};
-        int[] vcStamps = {6, 5, 4, 2, 1, 0};
-        int[] txtStamps = {5, 4, 3, 1, 0, -1};
-        double[] dtMult = {3.0, 2.5, 2, 1.5, 1, 0.75};
+        int[] vcGoldMax = {28, 25, 20, 12, 6};
+        int[] vcGoldMin = {26, 21, 15, 12, 6};
+        int[] txtGoldMax = {28, 25, 15, 0, -2};
+        int[] txtGoldMin = {26, 20, 15, 0, -2};
+        int[] vcStamps = {5, 4, 2, 1, 0};
+        int[] txtStamps = {4, 3, 1, 0, -1};
+        double[] dtMult = {2.5, 2, 1.5, 1, 0.75};
 
         // actual calculations
         if (isVc) {

@@ -1,4 +1,4 @@
-package me.azulflame.trainmarch.dmhelper.backend;
+package me.azulflame.trainmarch.dmhelper.service;
 
 import java.io.IOException;
 import java.nio.file.Files;

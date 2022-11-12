@@ -1,7 +1,7 @@
 package me.azulflame.trainmarch.dmhelper.listeners;
 
-import me.azulflame.trainmarch.dmhelper.backend.Difficulty;
-import me.azulflame.trainmarch.dmhelper.backend.Scrolls;
+import me.azulflame.trainmarch.dmhelper.service.Difficulty;
+import me.azulflame.trainmarch.dmhelper.service.Scrolls;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

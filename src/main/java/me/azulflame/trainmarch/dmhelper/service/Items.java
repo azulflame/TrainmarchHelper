@@ -1,4 +1,4 @@
-package me.azulflame.trainmarch.dmhelper.backend;
+package me.azulflame.trainmarch.dmhelper.service;
 
 import java.util.Random;
 
@@ -15,9 +15,6 @@ public class Items {
     private static String[] minItem = {noMin, nonMagic, common, uncommon, rare, veryRare};
 
     private static Integer[][] t1 = {
-            {
-                    1, 1, 1, 1, 2, 2, 2, 2, 2, 2    // TPK Likely
-            },
             {
                     0, 1, 1, 1, 1, 1, 2, 2, 2, 2    // Very Deadly
             },
@@ -36,9 +33,6 @@ public class Items {
     };
     private static Integer[][] t2 = {
             {
-                    2, 2, 3, 3, 3, 3, 3, 3, 3, 3    // TPK Likely
-            },
-            {
                     1, 2, 2, 2, 3, 3, 3, 3, 3, 3    // Very Deadly
             },
             {
@@ -55,9 +49,6 @@ public class Items {
             }
     };
     private static Integer[][] t3 = {
-            {
-                    3, 3, 3, 3, 4, 4, 4, 4, 4, 4    // TPK Likely
-            },
             {
                     2, 3, 3, 3, 3, 4, 4, 4, 4, 4    // Very Deadly
             },
@@ -76,9 +67,6 @@ public class Items {
     };
 
     private static Integer[][] t4 = {
-            {
-                    4, 4, 4, 4, 5, 5, 5, 5, 5, 5    // TPK Likely
-            },
             {
                     3, 4, 4, 4, 4, 5, 5, 5, 5, 5    // Very Deadly
             },
