@@ -1,25 +1,43 @@
 package me.azulflame.trainmarch.dmhelper.listeners;
 
 import me.azulflame.trainmarch.dmhelper.service.Difficulty;
+import me.azulflame.trainmarch.dmhelper.service.Items;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-public class RewardCommand extends ListenerAdapter {
+
+import static java.lang.Math.min;
+
+public class NewRewardsCommand extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         String command = event.getName();
-        if (command.equals("old-rewards")) {
+        if (command.equals("rewards")) {
             if (!event.getChannel().getId().equals("931707960491671552") && !event.getChannel().getId().equals("1015883484545433685")) {
                 event.reply("This must be run in the staff-bots channel").setEphemeral(true).queue();
             } else {
-                Double tier = event.getOption("tier").getAsDouble();
+                int t1 = (int)event.getOption("t1").getAsDouble();
+                int t2 = (int)event.getOption("t2").getAsDouble();
+                int t3 = (int)event.getOption("t3").getAsDouble();
+                int t4 = (int)event.getOption("t4").getAsDouble();
                 Double length = event.getOption("time").getAsDouble();
+                // Double rating = event.getOption("rating").getAsDouble();
                 Difficulty difficulty = Difficulty.getClosestDifficulty(event.getOption("difficulty").getAsString());
                 boolean vc = event.getOption("vc").getAsBoolean();
-                event.reply(getRewards(difficulty, length, vc, tier)).setEphemeral(false).queue();
+                event.reply(getRewards(difficulty, length, vc, t1, t2, t3, t4)).setEphemeral(false).queue();
             }
         }
     }
 
-    public String getRewards(Difficulty difficulty, double length, boolean isVc, double tier) {
+    private double getOverallTier(int t1, int t2, int t3, int t4)
+    {
+        return (0.0 + min(t1, 1) + 2*min(t2, 1) + 3*min(t3, 1) + 4*min(t4, 1))/(0.0 + min(t1, 1) + min(t2, 1) + min(t3, 1) + min(t4, 1));
+    }
+    public int getDmxp(double time, double rating)
+    {
+        return (int) (time + time * 5 * rating / 10);
+    }
+
+    public String getRewards(Difficulty difficulty, double length, boolean isVc, int t1, int t2, int t3, int t4) {
+        double tier = getOverallTier(t1, t2, t3, t4);
         int goldMin = 10;
         int stamps = (int) Math.round(length);
         int goldMax = 10;
@@ -70,10 +88,30 @@ public class RewardCommand extends ListenerAdapter {
         if (length >= 2.0) {
             side = "";
         }
-        return "Your quest rewards for the tier " + tier + ", " + length + " hour, " + difficulty.getName()
+        String output = "Your quest rewards for the tier " + tier + ", " + length + " hour, " + difficulty.getName()
                 + " " + type + " "
-                + side + "quest:\nStamps: " + stamps + "\nGold: " + randomGold(goldMin, goldMax) + "\nDT: "
-                + Math.round(dt);
+                + side + "quest" + "\nStamps: " + stamps + "\nGold: " + randomGold(goldMin, goldMax) + "\nDT: "
+                + Math.round(dt)
+                + "\n";
+        if (t1 > 0)
+        {
+            output += "\nTier 1 item rewards:\n" + Items.getBasicItems(1, difficulty, t1);
+        }
+        if (t2 > 0)
+        {
+            output += "\nTier 2 item rewards:\n" + Items.getBasicItems(2, difficulty, t2);
+        }
+        if (t3 > 0)
+        {
+            output += "\nTier 3 item rewards:\n" + Items.getBasicItems(3, difficulty, t3);
+        }
+        if (t4 > 0)
+        {
+            output += "\nTier 4 item rewards:\n" + Items.getBasicItems(4, difficulty, t4);
+        }
+
+
+        return output;
     }
 
     private int randomGold(int min, int max)

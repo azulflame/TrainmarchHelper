@@ -41,9 +41,14 @@ public class CommandManager extends ListenerAdapter {
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_TTS)));
         commandData.add(Commands.slash("rewards", "Calculate rewards for a quest")
                 .addOption(OptionType.NUMBER, "time", "The length of the quest, in hours", true)
-                .addOption(OptionType.NUMBER, "tier", "The tier of the quest", true)
+                .addOption(OptionType.NUMBER, "t1", "The number of tier 1 players", true)
+                .addOption(OptionType.NUMBER, "t2", "The number of tier 2 players", true)
+                .addOption(OptionType.NUMBER, "t3", "The number of tier 3 players", true)
+                .addOption(OptionType.NUMBER, "t4", "The number of tier 4 players", true)
                 .addOption(OptionType.STRING, "difficulty", "The difficulty of the quest", true, true)
-                .addOption(OptionType.BOOLEAN, "vc", "Was this a VC quest?", true));
+                .addOption(OptionType.BOOLEAN, "vc", "Was this a VC quest?", true)
+//                .addOption(OptionType.NUMBER, "rating", "The average rating of the quest (out of 10)", true)
+        );
         commandData.add(Commands.slash("items", "Generate the minimum items for your quest")
                 .addOption(OptionType.INTEGER, "tier", "The tier of the players", true)
                 .addOption(OptionType.INTEGER, "players", "The number of the players", true)

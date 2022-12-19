@@ -94,7 +94,8 @@ public class Main {
                             new HousingCommand(),
                             new TradeCommand(),
                             new AdminCommand(),
-                            new CommandModeEnforcer())
+                            new CommandModeEnforcer(),
+                            new NewRewardsCommand())
                     .setActivity(Activity.watching("for commands"))
                     .build();
         } catch (LoginException exception) {

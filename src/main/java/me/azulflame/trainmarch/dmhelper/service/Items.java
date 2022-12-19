@@ -106,6 +106,44 @@ public class Items {
         return response;
     }
 
+    public static String getBasicItems(int tier, Difficulty difficulty, int players) {
+        int[] minimums = new int[6];
+        for (int i = 0; i < players; i++) {
+            minimums[minimumForPlayer(tier, difficulty.getValue())]++;
+        }
+
+        String response = "";
+
+        for (int i = 0; i < 6; i++) {
+            if (minimums[i] > 0) {
+                response += minimums[i] + "x " + minItem[i] + ". Random generation: " + getRandomItem(i, minimums[i]) + "\n";
+            }
+        }
+
+        return response;
+    }
+
+    private static String getRandomItem(int rarity, int count)
+    {
+        if (rarity == 2)
+        {
+            return String.join(", ", Lists.get("Common Items", count));
+        }
+        if (rarity == 3)
+        {
+            return String.join(", ", Lists.get("Uncommon Items", count));
+        }
+        if (rarity == 4)
+        {
+            return String.join(", ", Lists.get("Rare Items", count));
+        }
+        if (rarity == 5)
+        {
+            return String.join(", ", Lists.get("Very Rare Items", count));
+        }
+        return "not supported";
+    }
+
     private static int minimumForPlayer(int tier, int difficulty) {
 
         int odds = rand.nextInt(10);
