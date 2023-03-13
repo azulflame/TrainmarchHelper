@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInterac
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
+import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,10 +42,7 @@ public class DowntimeCommand extends ListenerAdapter {
                 event.reply(output).setEphemeral(true).queue();
                 return;
             } else if (event.getSubcommandName().equals("add")) {
-                if (!event.getChannel().getId().equals("930144523001151518") && !event.getChannel().getId().equals("1015883484545433685")) {
-                    event.reply("Please use this in the downtime-commands channel").setEphemeral(true).queue();
-                    return;
-                }
+                if (invalidChannelReplyAndReturn(event)) {return;}
                 String userId = event.getUser().getId();
                 String character = event.getOption("character").getAsString();
                 int amount = event.getOption("amount").getAsInt();
@@ -62,10 +60,7 @@ public class DowntimeCommand extends ListenerAdapter {
                 event.reply("Downtime added to " + character + "\nOld: " + current + "\nChange: " + amount + "\nNew: " + (current + amount) + "\nReason: " + reason).queue();
                 return;
             } else if (event.getSubcommandName().equals("start")) {
-                if (!event.getChannel().getId().equals("930144523001151518") && !event.getChannel().getId().equals("1015883484545433685")) {
-                    event.reply("Please use this in the downtime-commands channel").setEphemeral(true).queue();
-                    return;
-                }
+                if (invalidChannelReplyAndReturn(event)) {return;}
                 String userId = event.getUser().getId();
                 String character = event.getOption("character").getAsString();
                 String element = event.getOption("action").getAsString();
@@ -99,7 +94,7 @@ public class DowntimeCommand extends ListenerAdapter {
                 }
                 DatabaseManager.setProgress(userId, character, element, amount, total);
                 DatabaseManager.setDowntime(userId, character, current - amount);
-                event.reply(character + " started working on " + element + ":\nDowntime " + current + " -> " + (current - amount) + "\nProgress: 0/" + total + " -> " + amount + "/" + total + "\nAction:" + element).queue();
+                event.reply(character + " started working on " + element + ":\nDowntime: " + current + " -> " + (current - amount) + "\nProgress: 0/" + total + " -> " + amount + "/" + total + "\nAction: " + element).queue();
                 return;
             } else if (event.getSubcommandName().equals("check-progress")) {
 
@@ -111,10 +106,7 @@ public class DowntimeCommand extends ListenerAdapter {
                 event.reply(outString).setEphemeral(true).queue();
                 return;
             } else if (event.getSubcommandName().equals("progress")) {
-                if (!event.getChannel().getId().equals("930144523001151518") && !event.getChannel().getId().equals("1015883484545433685")) {
-                    event.reply("Please use this in the downtime-commands channel").setEphemeral(true).queue();
-                    return;
-                }
+                if (invalidChannelReplyAndReturn(event)) {return;}
                 String userId = event.getUser().getId();
                 String character = event.getOption("character").getAsString();
                 String element = event.getOption("action").getAsString();
@@ -157,10 +149,7 @@ public class DowntimeCommand extends ListenerAdapter {
                 }
                 return;
             } else if (event.getSubcommandName().equals("use")) {
-                if (!event.getChannel().getId().equals("930144523001151518") && !event.getChannel().getId().equals("1015883484545433685")) {
-                    event.reply("Please use this in the downtime-commands channel").setEphemeral(true).queue();
-                    return;
-                }
+                if (invalidChannelReplyAndReturn(event)) {return;}
                 String userId = event.getUser().getId();
                 String character = event.getOption("character").getAsString();
                 int amount = event.getOption("amount").getAsInt();
@@ -182,6 +171,17 @@ public class DowntimeCommand extends ListenerAdapter {
                 DatabaseManager.setDowntime(userId, character, current - amount);
                 event.reply("Downtime used by " + character + "\nOld: " + current + "\nChange: " + amount + "\nNew: " + (current - amount) + "\nReason: " + reason).queue();
                 return;
+            }
+            else if(event.getSubcommandName().equals("craft"))
+            {
+                if (invalidChannelReplyAndReturn(event)) {return;}
+                String craft = event.getOption("item").getAsString();
+                String character = event.getOption("character").getAsString();
+                int dtUsed = event.getOption("downtime-amount").getAsInt();
+                boolean artificer = event.getOption("level-ten-artificer") != null && event.getOption("level-ten-artificer").getAsBoolean();
+
+                event.reply("Command: " + event.getName() + "\nSubcommand: " + event.getSubcommandName() + "\nArgs: " + event.getOptions() + "\nartificer: " + artificer).queue();
+
             }
         }
     }
@@ -205,5 +205,12 @@ public class DowntimeCommand extends ListenerAdapter {
             event.replyChoices(options).queue();
         }
     }
-
+    private boolean invalidChannelReplyAndReturn(SlashCommandInteraction event)
+    {
+        if (!event.getChannel().getId().equals("930144523001151518") && !event.getChannel().getId().equals("1015883484545433685")) {
+            event.reply("please use this in the <#930144523001151518> channel.").setEphemeral(true).queue();
+            return true;
+        }
+        return false;
+    }
 }

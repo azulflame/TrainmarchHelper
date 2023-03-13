@@ -23,15 +23,13 @@ public class ShopCommand extends ListenerAdapter {
             if (Shops.getShop(Market.BAZAAR).getShops().size() == 0) {
                 event.reply("Unable to load shops. Try again later.").setEphemeral(true).queue();
             } else {
-                SelectMenu menu = SelectMenu.create("choose-shop").addOptions(Shops.getShop(Market.BAZAAR).getShops().stream().map(x -> {
-                    return SelectOption.of(x, x);
-                }).collect(Collectors.toList())).build();
+                SelectMenu menu = SelectMenu.create("choose-shop").addOptions(Shops.getShop(Market.BAZAAR).getShops().stream().map(x -> SelectOption.of(x, x)).collect(Collectors.toList())).build();
                 event.reply("Please select a shop").setEphemeral(true).addActionRow(menu).queue();
             }
         }
         if (command.equals("shop") && subcommand != null) {
             if (!event.getChannel().getId().equals("945066980577267752") && !event.getChannel().getId().equals("1015883484545433685")) {
-                event.reply("This must be run in the shop-keepers channel").setEphemeral(true).queue();
+                event.reply("This must be run in the <#945066980577267752> channel").setEphemeral(true).queue();
             } else {
                 event.deferReply(false).queue();
                 if (subcommand.equals("add")) {
@@ -43,9 +41,7 @@ public class ShopCommand extends ListenerAdapter {
                     if (Shops.getShop(Market.BAZAAR).getShops().size() == 0) {
                         event.getHook().sendMessage("Unable to load shops. Try again later.").queue();
                     } else {
-                        SelectMenu menu = SelectMenu.create("reset-shop").addOptions(Shops.getShop(Market.BAZAAR).getShops().stream().map(x -> {
-                            return SelectOption.of(x, x);
-                        }).collect(Collectors.toList())).build();
+                        SelectMenu menu = SelectMenu.create("reset-shop").addOptions(Shops.getShop(Market.BAZAAR).getShops().stream().map(x -> SelectOption.of(x, x)).collect(Collectors.toList())).build();
                         event.getHook().sendMessage("Please select a shop").addActionRow(menu).queue();
                     }
                 }
@@ -53,11 +49,14 @@ public class ShopCommand extends ListenerAdapter {
                     if (Shops.getShop(Market.BAZAAR).getShops().size() == 0) {
                         event.getHook().sendMessage("Unable to load shops. Try again later.").queue();
                     } else {
-                        SelectMenu menu = SelectMenu.create("sell-shop").addOptions(Shops.getShop(Market.BAZAAR).getShops().stream().map(x -> {
-                            return SelectOption.of(x, x);
-                        }).collect(Collectors.toList())).build();
+                        SelectMenu menu = SelectMenu.create("sell-shop").addOptions(Shops.getShop(Market.BAZAAR).getShops().stream().map(x -> SelectOption.of(x, x)).collect(Collectors.toList())).build();
                         event.getHook().sendMessage("Please select a shop").addActionRow(menu).queue();
                     }
+                }
+                else if (subcommand.equals("wipe")) {
+                    event.deferReply(false).queue();
+                    Shops.getShop(Market.BAZAAR).resetAll();
+                    event.getHook().sendMessage("Deleted all items from the bazaar.").queue();
                 }
             }
         }
@@ -85,9 +84,7 @@ public class ShopCommand extends ListenerAdapter {
         }
         else if (event.getComponentId().equals("sell-shop")) {
             String shop = event.getValues().get(0);
-            SelectMenu itemMenu = SelectMenu.create("sell-items").addOptions(Shops.getShop(Market.BAZAAR).getItems(shop).stream().map(x -> {
-                return SelectOption.of(x, shop + ":" + x);
-            }).collect(Collectors.toSet())).build();
+            SelectMenu itemMenu = SelectMenu.create("sell-items").addOptions(Shops.getShop(Market.BAZAAR).getItems(shop).stream().map(x -> SelectOption.of(x, shop + ":" + x)).collect(Collectors.toSet())).build();
 
             MessageEditData meda = new MessageEditBuilder().setContent("Which item are you selling?").build();
             event.editMessage(meda).setActionRow(itemMenu).queue();

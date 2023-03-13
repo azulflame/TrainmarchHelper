@@ -12,7 +12,7 @@ public class RandomSelector {
 
     public void load(String filename) {
         try {
-            choices = new ArrayList<String>();
+            choices = new ArrayList<>();
             File f = new File(filename);
             Scanner s = new Scanner(new FileInputStream(f));
             while (s.hasNextLine()) {

@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class StampCommand extends ListenerAdapter {
 
-    int[] stampThreshold = {0, 3, 7, 13, 20, 29, 39, 49, 60, 74, 90, 107, 124, 143, 162, 183, 206, 229, 255, 285};
+    final int[] stampThreshold = {0, 3, 7, 13, 20, 29, 39, 49, 60, 74, 90, 107, 124, 143, 162, 183, 206, 229, 255, 285};
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
@@ -30,7 +30,7 @@ public class StampCommand extends ListenerAdapter {
                 int current = pc.getStamps();
                 if (current < 0)
                 {
-                    event.reply("Unable to find a character by that name. Did you type it correctly?").setEphemeral(true);
+                    event.reply("Unable to find a character by that name. Did you type it correctly?").setEphemeral(true).queue();
                     return;
                 }
                 event.deferReply().queue();

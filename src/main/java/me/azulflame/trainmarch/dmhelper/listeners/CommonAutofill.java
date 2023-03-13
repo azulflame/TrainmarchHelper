@@ -1,6 +1,5 @@
 package me.azulflame.trainmarch.dmhelper.listeners;
 
-import me.azulflame.trainmarch.dmhelper.repository.DatabaseManager;
 import me.azulflame.trainmarch.dmhelper.service.Difficulty;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

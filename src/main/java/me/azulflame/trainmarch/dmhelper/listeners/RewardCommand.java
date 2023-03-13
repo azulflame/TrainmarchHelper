@@ -3,15 +3,16 @@ package me.azulflame.trainmarch.dmhelper.listeners;
 import me.azulflame.trainmarch.dmhelper.service.Difficulty;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
 public class RewardCommand extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         String command = event.getName();
         if (command.equals("old-rewards")) {
             if (!event.getChannel().getId().equals("931707960491671552") && !event.getChannel().getId().equals("1015883484545433685")) {
-                event.reply("This must be run in the staff-bots channel").setEphemeral(true).queue();
+                event.reply("This must be run in the <#931707960491671552> channel").setEphemeral(true).queue();
             } else {
-                Double tier = event.getOption("tier").getAsDouble();
-                Double length = event.getOption("time").getAsDouble();
+                double tier = event.getOption("tier").getAsDouble();
+                double length = event.getOption("time").getAsDouble();
                 Difficulty difficulty = Difficulty.getClosestDifficulty(event.getOption("difficulty").getAsString());
                 boolean vc = event.getOption("vc").getAsBoolean();
                 event.reply(getRewards(difficulty, length, vc, tier)).setEphemeral(false).queue();
@@ -76,8 +77,7 @@ public class RewardCommand extends ListenerAdapter {
                 + Math.round(dt);
     }
 
-    private int randomGold(int min, int max)
-    {
+    private int randomGold(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 }

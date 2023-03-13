@@ -1,7 +1,6 @@
 package me.azulflame.trainmarch.dmhelper.service;
 
 import me.azulflame.trainmarch.dmhelper.Tuple;
-import net.dv8tion.jda.internal.utils.tuple.Pair;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +10,7 @@ import java.util.Scanner;
 
 public class Crafting {
 
-    private static Map<String, Tuple> costs = loadCraftingCosts();
+    private static final Map<String, Tuple> costs = loadCraftingCosts();
 
 
     private static Map<String, Tuple> loadCraftingCosts() {

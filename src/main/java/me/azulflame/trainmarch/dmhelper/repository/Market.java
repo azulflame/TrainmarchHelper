@@ -5,9 +5,9 @@ public enum Market {
     BAZAAR("items"),
     TRADE_MARKET("trade_market");
 
-    private String value;
+    private final String value;
 
-    private Market(String value) {
+    Market(String value) {
         this.value = value;
     }
 

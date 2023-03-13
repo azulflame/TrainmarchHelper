@@ -23,15 +23,13 @@ public class MarketCommand extends ListenerAdapter {
             if (Shops.getShop(Market.BLACK_MARKET).getShops().size() == 0) {
                 event.reply("Unable to load shops. Try again later.").setEphemeral(true).queue();
             } else {
-                SelectMenu menu = SelectMenu.create("choose-market").addOptions(Shops.getShop(Market.BLACK_MARKET).getShops().stream().map(x -> {
-                    return SelectOption.of(x, x);
-                }).collect(Collectors.toList())).build();
+                SelectMenu menu = SelectMenu.create("choose-market").addOptions(Shops.getShop(Market.BLACK_MARKET).getShops().stream().map(x -> SelectOption.of(x, x)).collect(Collectors.toList())).build();
                 event.reply("Please select a shop").setEphemeral(true).addActionRow(menu).queue();
             }
         }
         if (command.equals("market") && subcommand != null) {
             if (!event.getChannel().getId().equals("845160869772132402") && !event.getChannel().getId().equals("1015883484545433685")) {
-                event.reply("This must be run in the slumlords channel").setEphemeral(true).queue();
+                event.reply("This must be run in the <#845160869772132402> channel").setEphemeral(true).queue();
             } else {
                 if (subcommand.equals("add")) {
                     event.deferReply(false).queue();
@@ -44,9 +42,7 @@ public class MarketCommand extends ListenerAdapter {
                         event.reply("Unable to load shops. Try again later.").setEphemeral(true).queue();
                     } else {
                         event.deferReply(false).queue();
-                        SelectMenu menu = SelectMenu.create("reset-markets").addOptions(Shops.getShop(Market.BLACK_MARKET).getShops().stream().map(x -> {
-                            return SelectOption.of(x, x);
-                        }).collect(Collectors.toList())).build();
+                        SelectMenu menu = SelectMenu.create("reset-markets").addOptions(Shops.getShop(Market.BLACK_MARKET).getShops().stream().map(x -> SelectOption.of(x, x)).collect(Collectors.toList())).build();
                         event.getHook().sendMessage("Please select a shop").setEphemeral(false).addActionRow(menu).queue();
                     }
                 }
@@ -55,11 +51,14 @@ public class MarketCommand extends ListenerAdapter {
                         event.reply("Unable to load shops. Try again later.").setEphemeral(true).queue();
                     } else {
                         event.deferReply(false).queue();
-                        SelectMenu menu = SelectMenu.create("sell-market").addOptions(Shops.getShop(Market.BLACK_MARKET).getShops().stream().map(x -> {
-                            return SelectOption.of(x, x);
-                        }).collect(Collectors.toList())).build();
+                        SelectMenu menu = SelectMenu.create("sell-market").addOptions(Shops.getShop(Market.BLACK_MARKET).getShops().stream().map(x -> SelectOption.of(x, x)).collect(Collectors.toList())).build();
                         event.getHook().sendMessage("Please select a shop").setEphemeral(false).addActionRow(menu).queue();
                     }
+                }
+                if (subcommand.equals("wipe")) {
+                    event.deferReply().queue();
+                    Shops.getShop(Market.BLACK_MARKET).resetAll();
+                    event.getHook().sendMessage("All shops have been reset").queue();
                 }
             }
         }
@@ -87,9 +86,7 @@ public class MarketCommand extends ListenerAdapter {
         }
         else if (event.getComponentId().equals("sell-market")) {
             String shop = event.getValues().get(0);
-            SelectMenu itemMenu = SelectMenu.create("sell-market-items").addOptions(Shops.getShop(Market.BLACK_MARKET).getItems(shop).stream().map(x -> {
-                return SelectOption.of(x, shop + ":" + x);
-            }).collect(Collectors.toSet())).build();
+            SelectMenu itemMenu = SelectMenu.create("sell-market-items").addOptions(Shops.getShop(Market.BLACK_MARKET).getItems(shop).stream().map(x -> SelectOption.of(x, shop + ":" + x)).collect(Collectors.toSet())).build();
 
             MessageEditData meda = new MessageEditBuilder().setContent("Which item are you selling?").build();
             event.editMessage(meda).setActionRow(itemMenu).queue();

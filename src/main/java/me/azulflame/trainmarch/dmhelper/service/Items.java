@@ -3,18 +3,18 @@ package me.azulflame.trainmarch.dmhelper.service;
 import java.util.Random;
 
 public class Items {
-    static Random rand = new Random();
+    private static final Random rand = new Random();
 
-    private static String noMin = "No minimum";
-    private static String nonMagic = "Non-magical item";
-    private static String common = "Common magic item";
-    private static String uncommon = "Uncommon magic item";
-    private static String rare = "Rare magic item";
-    private static String veryRare = "Very rare magic item";
+    private static final String noMin = "No minimum";
+    private static final String nonMagic = "Non-magical item";
+    private static final String common = "Common magic item";
+    private static final String uncommon = "Uncommon magic item";
+    private static final String rare = "Rare magic item";
+    private static final String veryRare = "Very rare magic item";
 
-    private static String[] minItem = {noMin, nonMagic, common, uncommon, rare, veryRare};
+    private static final String[] minItem = {noMin, nonMagic, common, uncommon, rare, veryRare};
 
-    private static Integer[][] t1 = {
+    private static final Integer[][] t1 = {
             {
                     0, 1, 1, 1, 1, 1, 2, 2, 2, 2    // Very Deadly
             },
@@ -31,7 +31,7 @@ public class Items {
                     0, 0, 0, 0, 0, 0, 1, 1, 1, 1    // Easy
             }
     };
-    private static Integer[][] t2 = {
+    private static final Integer[][] t2 = {
             {
                     1, 2, 2, 2, 3, 3, 3, 3, 3, 3    // Very Deadly
             },
@@ -48,7 +48,7 @@ public class Items {
                     0, 1, 1, 1, 1, 1, 2, 2, 2, 2    // Easy
             }
     };
-    private static Integer[][] t3 = {
+    private static final Integer[][] t3 = {
             {
                     2, 3, 3, 3, 3, 4, 4, 4, 4, 4    // Very Deadly
             },
@@ -66,7 +66,7 @@ public class Items {
             }
     };
 
-    private static Integer[][] t4 = {
+    private static final Integer[][] t4 = {
             {
                     3, 4, 4, 4, 4, 5, 5, 5, 5, 5    // Very Deadly
             },

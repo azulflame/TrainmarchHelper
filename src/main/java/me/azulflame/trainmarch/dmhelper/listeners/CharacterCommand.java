@@ -41,9 +41,7 @@ public class CharacterCommand extends ListenerAdapter {
                 String user = event.getUser().getId();
                 List<String> names = DatabaseManager.getCharacters(user);
                 String message = "Which character do you want from " + event.getUser().getAsMention() + "?";
-                SelectMenu menu = SelectMenu.create("character-names").addOptions(names.stream().map(x -> {
-                    return SelectOption.of(x, user + "|" + x);
-                }).collect(Collectors.toList())).build();
+                SelectMenu menu = SelectMenu.create("character-names").addOptions(names.stream().map(x -> SelectOption.of(x, user + "|" + x)).collect(Collectors.toList())).build();
                 event.reply(message).addActionRow(menu).queue();
             }
         }

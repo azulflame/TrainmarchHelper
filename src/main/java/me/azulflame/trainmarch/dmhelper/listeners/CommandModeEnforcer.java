@@ -11,7 +11,7 @@ import java.util.Set;
 @Slf4j
 public class CommandModeEnforcer extends ListenerAdapter {
 
-    private static Set<String> ids = new HashSet<>();
+    private static final Set<String> ids = new HashSet<>();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event)

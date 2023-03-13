@@ -10,7 +10,7 @@ public class ItemCommand extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("items")) {
             if (!event.getChannel().getId().equals("931707960491671552") && !event.getChannel().getId().equals("1015883484545433685")) {
-                event.reply("This must be run in the staff-bots channel").setEphemeral(true).queue();
+                event.reply("This must be run in the <#931707960491671552> channel").setEphemeral(true).queue();
             } else {
                 int players = event.getOption("players").getAsInt();
                 int tier = event.getOption("tier").getAsInt();

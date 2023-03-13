@@ -8,7 +8,7 @@ import java.util.*;
 public class Shops {
 
 
-    public static HashMap<Market, Shops> shopList = new HashMap<>();
+    public static final HashMap<Market, Shops> shopList = new HashMap<>();
     public Shops(Market m)
     {
         this.market = m;
@@ -25,11 +25,11 @@ public class Shops {
     }
 
     private HashMap<String, List<String>> shops = new HashMap<>();
-    private Market market;
+    private final Market market;
 
     public void add(String shop, List<String> items, boolean saveToDb) {
         if (!shops.containsKey(shop)) {
-            shops.put(shop, new LinkedList<String>());
+            shops.put(shop, new LinkedList<>());
         }
         for (String item : items)
             shops.get(shop).add(item);
@@ -43,8 +43,8 @@ public class Shops {
 
     public List<String> getItems(String shop) {
         if (shops.containsKey(shop)) {
-            HashSet<String> items = new HashSet(shops.get(shop));
-            return new ArrayList<String>(items);
+            HashSet<String> items = new HashSet<>(shops.get(shop));
+            return new ArrayList<>(items);
         }
         return null;
     }
@@ -62,6 +62,7 @@ public class Shops {
     }
 
     public void resetAll() {
+        DatabaseManager.wipeMarket(market);
         shops = new HashMap<>();
     }
 }

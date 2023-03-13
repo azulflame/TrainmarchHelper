@@ -33,13 +33,14 @@ public class Main {
                 s.close();
             }
         } catch (IOException e) {
-            System.out.println("Token file not found, attempting to use command line inputs");
+            log.error("Token file not found, attempting to use command line inputs");
         }
 
         try {
             Lists.load();
+            log.info("Finished loading random lists");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
 
         try {
@@ -47,6 +48,7 @@ public class Main {
             if (f.exists()) {
                 s = new Scanner(f);
                 DatabaseManager.setConnectionString(s.nextLine());
+                log.info("Loaded connection string");
             }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
@@ -55,7 +57,7 @@ public class Main {
 
         if (token.equals("")) {
             if (args.length < 1) {
-                System.out.println("Token not found and is required");
+                log.error("Token not found and is required");
                 return;
             }
             token = args[0];
@@ -64,12 +66,14 @@ public class Main {
             for (Market m : Market.values()) {
                 DatabaseManager.loadItems(m);
             }
+            log.info("Loaded items from database");
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Unable to load shop data. Proceeding without shop data.");
         }
         try {
             DatabaseManager.getLockedChannels().forEach(CommandModeEnforcer::lockChannel);
+            log.info("Loaded locked channels");
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Unable to load locked channels. Proceeding without locks.");
@@ -95,11 +99,12 @@ public class Main {
                             new TradeCommand(),
                             new AdminCommand(),
                             new CommandModeEnforcer(),
-                            new NewRewardsCommand())
+                            new NewRewardsCommand(),
+                            new ComputeDmxpCommand())
                     .setActivity(Activity.watching("for commands"))
                     .build();
         } catch (LoginException exception) {
-            System.out.print("Unable to log in, check your token or try again later");
+            log.error("Unable to log in, check your token or try again later");
         }
     }
 }

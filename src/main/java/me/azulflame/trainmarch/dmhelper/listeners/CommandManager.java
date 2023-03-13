@@ -37,16 +37,17 @@ public class CommandManager extends ListenerAdapter {
                                 .addOption(OptionType.STRING, "shop", "The shop to add items to", true)
                                 .addOption(OptionType.STRING, "items", "The items to add to the shop", true),
                         new SubcommandData("delete", "Delete a shop"),
-                        new SubcommandData("sell", "Sell an item from a shop"))
+                        new SubcommandData("sell", "Sell an item from a shop"),
+                        new SubcommandData("wipe", "Wipe all the shops"))
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_TTS)));
         commandData.add(Commands.slash("rewards", "Calculate rewards for a quest")
-                .addOption(OptionType.NUMBER, "time", "The length of the quest, in hours", true)
-                .addOption(OptionType.NUMBER, "t1", "The number of tier 1 players", true)
-                .addOption(OptionType.NUMBER, "t2", "The number of tier 2 players", true)
-                .addOption(OptionType.NUMBER, "t3", "The number of tier 3 players", true)
-                .addOption(OptionType.NUMBER, "t4", "The number of tier 4 players", true)
-                .addOption(OptionType.STRING, "difficulty", "The difficulty of the quest", true, true)
-                .addOption(OptionType.BOOLEAN, "vc", "Was this a VC quest?", true)
+                        .addOption(OptionType.NUMBER, "time", "The length of the quest, in hours", true)
+                        .addOption(OptionType.NUMBER, "t1", "The number of tier 1 players", true)
+                        .addOption(OptionType.NUMBER, "t2", "The number of tier 2 players", true)
+                        .addOption(OptionType.NUMBER, "t3", "The number of tier 3 players", true)
+                        .addOption(OptionType.NUMBER, "t4", "The number of tier 4 players", true)
+                        .addOption(OptionType.STRING, "difficulty", "The difficulty of the quest", true, true)
+                        .addOption(OptionType.BOOLEAN, "vc", "Was this a VC quest?", true)
 //                .addOption(OptionType.NUMBER, "rating", "The average rating of the quest (out of 10)", true)
         );
         commandData.add(Commands.slash("items", "Generate the minimum items for your quest")
@@ -80,7 +81,8 @@ public class CommandManager extends ListenerAdapter {
                                 .addOption(OptionType.STRING, "shop", "The shop to add items to", true)
                                 .addOption(OptionType.STRING, "items", "The items to add to the shop", true),
                         new SubcommandData("delete", "Delete a shop"),
-                        new SubcommandData("sell", "Sell an item from a shop"))
+                        new SubcommandData("sell", "Sell an item from a shop"),
+                        new SubcommandData("wipe", "Delete all shops"))
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_TTS)));
         commandData.add(Commands.slash("timestamp", "Generate a formatted timestamp")
                 .addOption(OptionType.STRING, "timezone", "The timezone the time is in", true, true)
@@ -95,6 +97,9 @@ public class CommandManager extends ListenerAdapter {
                 .addOption(OptionType.USER, "player", "The player the house is for", true)
                 .addOption(OptionType.STRING, "character", "The character who paid for the house", true)
                 .addOption(OptionType.STRING, "housing-type", "The type of the house", true, true)
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_SERVER)));
+        commandData.add(Commands.slash("register-housing", "Register the owner of a house")
+                .addOption(OptionType.USER, "new-owner", "The new owner of the housing channel", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_SERVER)));
         commandData.add(Commands.slash("trade-market", "View the items in a trade market section")
                 .addOption(OptionType.STRING, "section", "The section to view the items in", true, true));
@@ -117,35 +122,6 @@ public class CommandManager extends ListenerAdapter {
                                 .addOption(OptionType.STRING, "section", "The section to remove the item from", true, true)
                                 .addOption(OptionType.STRING, "item", "The item to remove", true, true))
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_TTS)));
-//        commandData.add(Commands.slash("character", "Character tracking and automation for gold, downtime, and stamps")
-//                .addSubcommands(
-//                        new SubcommandData("register", "Register a character with an avrae export blob")
-//                                .addOption(OptionType.STRING, "blob", "Character export data from !export", true),
-//                        new SubcommandData("update", "Update an existing character with data from an avrae export blob")
-//                                .addOption(OptionType.STRING, "blob", "Character export data from !export", true),
-//                        new SubcommandData("delete", "Delete a character")
-//                                .addOption(OptionType.STRING, "character", "The name of the character to delete", true, true),
-//                        new SubcommandData("view-link", "Retrieve your character sheet link")));
-//        commandData.add(Commands.slash("coins", "Adjust a character's gold")
-//                .addSubcommands(
-//                        new SubcommandData("add", "Add coins to your coin purse")
-//                                .addOption(OptionType.STRING, "character", "The character to adjust the coins for", true, true)
-//                                .addOption(OptionType.INTEGER, "platinum", "Platinum coins to add (10gp per platinum)")
-//                                .addOption(OptionType.INTEGER, "gold", "Gold coins to add (10sp per platinum)")
-//                                .addOption(OptionType.INTEGER, "silver", "Silver coins to add (10cp per silver)")
-//                                .addOption(OptionType.INTEGER, "copper", "Copper coins to add"),
-//                        new SubcommandData("remove", "Remove coins to your coinpurse")
-//                                .addOption(OptionType.STRING, "character", "The character to adjust the coins for", true, true)
-//                                .addOption(OptionType.INTEGER, "platinum", "Platinum coins to remove (10gp per platinum)")
-//                                .addOption(OptionType.INTEGER, "gold", "Gold coins to remove (10sp per platinum)")
-//                                .addOption(OptionType.INTEGER, "silver", "Silver coins to remove (10cp per silver)")
-//                                .addOption(OptionType.INTEGER, "copper", "Copper coins to remove"),
-//                        new SubcommandData("convert", "Convert all currency to a specific coin")
-//                                .addOption(OptionType.STRING, "character", "The character to adjust the coins for", true, true)
-//                                .addOption(OptionType.STRING, "to", "The coin type to adjust all of the currency to", true, true)
-//                                .addOption(OptionType.STRING, "from", "The coin type to convert the currency from", true, true),
-//                        new SubcommandData("check", "Check the currency for a character")
-//                                .addOption(OptionType.STRING, "character", "The character to check", true, true)));
         commandData.add(Commands.slash("downtime", "Manage your character's downtime")
                 .addSubcommands(
                         new SubcommandData("check-all", "Check the downtime for all of your characters"),
@@ -155,7 +131,7 @@ public class CommandManager extends ListenerAdapter {
                                 .addOption(OptionType.STRING, "character", "The character to add downtime to", true, true)
                                 .addOption(OptionType.INTEGER, "amount", "The amount of downtime to add", true)
                                 .addOption(OptionType.STRING, "reason", "The reason to add downtime", true),
-                        new SubcommandData("use", "Remove downtime from your character")
+                        new SubcommandData("use", "Use downtime from your character")
                                 .addOption(OptionType.STRING, "character", "The character to remove downtime from", true, true)
                                 .addOption(OptionType.INTEGER, "amount", "The amount of downtime to remove", true)
                                 .addOption(OptionType.STRING, "reason", "The reason to remove downtime", true),
@@ -163,12 +139,22 @@ public class CommandManager extends ListenerAdapter {
                                 .addOption(OptionType.STRING, "character", "The character that is doing the action", true, true)
                                 .addOption(OptionType.STRING, "action", "The action you are undertaking", true)
                                 .addOption(OptionType.INTEGER, "amount", "The initial amount of progress you are using", true)
-                                .addOption(OptionType.INTEGER ,"total-to-reach", "The completion progress for what you are working on", true),
+                                .addOption(OptionType.INTEGER, "total-to-reach", "The completion progress for what you are working on", true),
                         new SubcommandData("progress", "Put downtime towards a progress-based downtime event")
                                 .addOption(OptionType.STRING, "character", "The character that is doing the action", true, true)
                                 .addOption(OptionType.STRING, "action", "The action you are working on", true, true)
                                 .addOption(OptionType.INTEGER, "amount", "The amount of downtime you are putting towards the action", true),
-                        new SubcommandData("check-progress", "Check the progress of your downtime progress actions")
+                        new SubcommandData("check-progress", "Check the progress of your downtime progress actions"),
+                        new SubcommandData("craft", "Craft an item using downtime")
+                                .addOption(OptionType.STRING, "character", "The character to craft on", true, true)
+                                .addOption(OptionType.STRING, "item", "The item you will be crafting", true, true)
+                                .addOption(OptionType.STRING, "downtime-amount", "The amount of downtime to use. The excess used will be refunded.", true)
+                                .addOption(OptionType.BOOLEAN, "level-10-artificer", "Whether or not your character has the level 10 artificer ability"),
+                        new SubcommandData("remove-character", "Remove a character from the downtime tracking")
+                                .addOption(OptionType.STRING, "character", "The character to remove", true, true)
+//                        new SubcommandData("daily", "Add daily downtime to all characters")
+//                                .addOption(OptionType.STRING, "character", "The character to remove downtime from", true, true)
+//                                .addOption(OptionType.STRING, "reason", "The reason to remove downtime", true)
                 ));
         commandData.add(Commands.slash("admin", "A suite of administrator commands to check what state other characters are in")
                 .addSubcommands(
@@ -180,6 +166,16 @@ public class CommandManager extends ListenerAdapter {
                         new SubcommandData("unlock-command-only", "Unlocks a channel from command-only mode"))
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR))
         );
+        commandData.add(Commands.slash("housing", "A collection of housing management related commands")
+                .addSubcommands(
+                        new SubcommandData("allow", "Allow a user to see the channel")
+                                .addOption(OptionType.USER, "player", "The player to add to the channel", true),
+                        new SubcommandData("restrict", "Restrict a user from seeeing this channel")
+                                .addOption(OptionType.USER, "player", "The player to restrict from the channel", true)
+                ));
+        commandData.add(Commands.slash("compute-dmxp", "Compute the DMXP you get from a quest, given the time and rating")
+                .addOption(OptionType.NUMBER, "time", "The time the quest ran for", true)
+                .addOption(OptionType.NUMBER, "average-rating", "The average rating out of 10", true));
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 }

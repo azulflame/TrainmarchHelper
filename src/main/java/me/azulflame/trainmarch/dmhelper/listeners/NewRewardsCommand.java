@@ -12,13 +12,13 @@ public class NewRewardsCommand extends ListenerAdapter {
         String command = event.getName();
         if (command.equals("rewards")) {
             if (!event.getChannel().getId().equals("931707960491671552") && !event.getChannel().getId().equals("1015883484545433685")) {
-                event.reply("This must be run in the staff-bots channel").setEphemeral(true).queue();
+                event.reply("This must be run in the <#931707960491671552> channel").setEphemeral(true).queue();
             } else {
                 int t1 = (int)event.getOption("t1").getAsDouble();
                 int t2 = (int)event.getOption("t2").getAsDouble();
                 int t3 = (int)event.getOption("t3").getAsDouble();
                 int t4 = (int)event.getOption("t4").getAsDouble();
-                Double length = event.getOption("time").getAsDouble();
+                double length = event.getOption("time").getAsDouble();
                 // Double rating = event.getOption("rating").getAsDouble();
                 Difficulty difficulty = Difficulty.getClosestDifficulty(event.getOption("difficulty").getAsString());
                 boolean vc = event.getOption("vc").getAsBoolean();

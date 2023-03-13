@@ -37,7 +37,7 @@ public class Lists {
     }
 
     public static String getItem(String command)
-    {;
+    {
         return lists.get(command).get();
     }
 

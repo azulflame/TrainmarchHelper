@@ -68,15 +68,17 @@ public class TimestampCommand extends ListenerAdapter {
             String time = String.valueOf(ZonedDateTime.of(year, month, day, hour, minute, second, 0, ZoneId.of(timezone)).toEpochSecond());
 
             event.reply(
-                    String.format("Your timestamps:\n" +
-                            "`<t:%s:d>`\t<t:%s:d>\n" +
-                            "`<t:%s:D>`\t<t:%s:D>\n" +
-                            "`<t:%s:t>`\t<t:%s:t>\n" +
-                            "`<t:%s:T>`\t<t:%s:T>\n" +
-                            "`<t:%s:f>`\t<t:%s:f>\n" +
-                            "`<t:%s:F>`\t<t:%s:F>\n" +
-                            "`<t:%s:R>`\t<t:%s:R>\n" +
-                            "`<t:%s>`\t\t<t:%s>\n", time,time,time,time,time,time,time,time,time,time,time,time,time,time,time,time)).setEphemeral(true).queue();
+                    String.format("""
+                            Your timestamps:
+                            `<t:%s:d>`\t<t:%s:d>
+                            `<t:%s:D>`\t<t:%s:D>
+                            `<t:%s:t>`\t<t:%s:t>
+                            `<t:%s:T>`\t<t:%s:T>
+                            `<t:%s:f>`\t<t:%s:f>
+                            `<t:%s:F>`\t<t:%s:F>
+                            `<t:%s:R>`\t<t:%s:R>
+                            `<t:%s>`\t\t<t:%s>
+                            """, time,time,time,time,time,time,time,time,time,time,time,time,time,time,time,time)).setEphemeral(true).queue();
         }
     }
 

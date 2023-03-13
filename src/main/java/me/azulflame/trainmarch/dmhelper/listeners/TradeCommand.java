@@ -47,7 +47,7 @@ public class TradeCommand extends ListenerAdapter {
                 Shops.getShop(Market.TRADE_MARKET).reset(section);
                 event.reply("Section " + section + " reset.").queue();
             } else if (event.getSubcommandName().equals("delete-all")) {
-                Set<String> shops = new HashSet<String>(Shops.getShop(Market.TRADE_MARKET).getShops());
+                Set<String> shops = new HashSet<>(Shops.getShop(Market.TRADE_MARKET).getShops());
                 for (String s : shops) {
                     if (!s.equals("Player Items")) {
                         Shops.getShop(Market.TRADE_MARKET).reset(s);

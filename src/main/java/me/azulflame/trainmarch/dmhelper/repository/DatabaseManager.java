@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import me.azulflame.trainmarch.dmhelper.dto.PlayerCharacter;
 import me.azulflame.trainmarch.dmhelper.service.Shops;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.*;
 
@@ -17,8 +16,7 @@ public class DatabaseManager {
     public static final String TRADE_MARKET = "trade_market";
 
     private static Connection connect() throws SQLException {
-        Connection conn = DriverManager.getConnection(url);
-        return conn;
+        return DriverManager.getConnection(url);
     }
 
     public static void loadItems(Market market) {
@@ -39,6 +37,17 @@ public class DatabaseManager {
             String query = "DELETE FROM " + market.getValue() + " WHERE shop = ?;";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, shop);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void wipeMarket(Market market) {
+        try (Connection conn = connect()) {
+            String query = "DELETE FROM " + market.getValue() + ";";
+            PreparedStatement ps = conn.prepareStatement(query);
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -167,7 +176,7 @@ public class DatabaseManager {
     }
 
     public static List<String> getCharacters(String userId) {
-        List<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<>();
         try (Connection conn = connect()) {
             String query = "SELECT name FROM characters WHERE user_id = ?;";
             PreparedStatement ps = conn.prepareStatement(query);
@@ -443,5 +452,42 @@ public class DatabaseManager {
     }
     public static void setConnectionString(String connectionString) {
         url = connectionString;
+    }
+
+    public static void setOwner(String ownerId, String channelId) {
+        String query = "INSERT INTO housing (channel, owner) VALUES (?, ?) ON DUPLICATE KEY UPDATE owner = ?;";
+        try (Connection conn = connect())
+        {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, channelId);
+            ps.setString(2, ownerId);
+            ps.setString(3, ownerId);
+
+            ps.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getOwner(String id) {
+        String query = "SELECT owner FROM housing WHERE channel = ?;";
+        try (Connection conn = connect())
+        {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                return rs.getString("owner");
+            }
+            return "no match";
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
