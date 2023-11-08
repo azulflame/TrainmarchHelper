@@ -106,6 +106,18 @@ public class TradeCommand extends ListenerAdapter {
                 }
 
             }
+            else if(event.getSubcommandName().equals("generate"))
+            {
+                event.deferReply().queue();
+                Set<String> shops = new HashSet<>(Shops.getShop(Market.TRADE_MARKET).getShops());
+                for (String s : shops) {
+                    if (!s.equals("Player Items")) {
+                        Shops.getShop(Market.TRADE_MARKET).reset(s);
+                    }
+                }
+                Shops.getShop(Market.TRADE_MARKET).generate();
+                event.getHook().sendMessage("Shops have been wiped and generated").queue();
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import me.azulflame.trainmarch.dmhelper.repository.DatabaseManager;
 import me.azulflame.trainmarch.dmhelper.repository.Market;
 import me.azulflame.trainmarch.dmhelper.service.Lists;
 import me.azulflame.trainmarch.dmhelper.listeners.*;
+import me.azulflame.trainmarch.dmhelper.service.Shops;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,6 +73,11 @@ public class Main {
             log.error("Unable to load shop data. Proceeding without shop data.");
         }
         try {
+            Shops.loadItems("Shop Items.txt");
+        } catch (IOException e) {
+            log.error("Unable to load shop item data");
+        }
+        try {
             DatabaseManager.getLockedChannels().forEach(CommandModeEnforcer::lockChannel);
             log.info("Loaded locked channels");
         } catch (Exception e) {
@@ -88,19 +94,18 @@ public class Main {
                             new ScrollsCommand(),
                             new ShopCommand(),
                             new DmxpCommand(),
-                            new StampCommand(),
-                            new CharacterCommand(),
                             new MarketCommand(),
                             new TimestampCommand(),
                             new CommonAutofill(),
-                            new CoinCommand(),
                             new DowntimeCommand(),
                             new HousingCommand(),
                             new TradeCommand(),
                             new AdminCommand(),
                             new CommandModeEnforcer(),
                             new NewRewardsCommand(),
-                            new ComputeDmxpCommand())
+                            new ComputeDmxpCommand(),
+                            new SheetcheckCommand(),
+                            new InspectCommand())
                     .setActivity(Activity.watching("for commands"))
                     .build();
         } catch (LoginException exception) {

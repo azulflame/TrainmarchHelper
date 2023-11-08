@@ -1,6 +1,7 @@
 package me.azulflame.trainmarch.dmhelper.listeners;
 
 import me.azulflame.trainmarch.dmhelper.service.Difficulty;
+import me.azulflame.trainmarch.dmhelper.service.QuestType;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
@@ -19,6 +20,14 @@ public class CommonAutofill extends ListenerAdapter {
                     .limit(25)
                     .toList();
             event.replyChoices(options).queue();
+        } else if (event.getFocusedOption().getName().equals("quest-type")) {
+            List<Command.Choice> options = Arrays.stream(QuestType.values())
+                    .filter(word -> word.getName().contains(event.getFocusedOption().getValue()))
+                    .map(word -> new Command.Choice(word.getName(), word.getName()))
+                    .limit(25)
+                    .toList();
+            event.replyChoices(options).queue();
+
 //        } else if (event.getFocusedOption().getName().equals("character")) {
 //            List<String> names = DatabaseManager.getCharacters(event.getUser().getId());
 //            List<Command.Choice> options = names.stream()

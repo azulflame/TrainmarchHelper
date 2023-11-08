@@ -31,24 +31,24 @@ public class CommandManager extends ListenerAdapter {
     public void onGuildReady(GuildReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>();
         commandData.add(Commands.slash("bazaar", "View the available items from the weekly shops"));
-        commandData.add(Commands.slash("shop", "Manage the Bazaar")
+        commandData.add(Commands.slash("bazaar-admin", "Manage the Bazaar")
                 .addSubcommands(
                         new SubcommandData("add", "Add items to a shop")
                                 .addOption(OptionType.STRING, "shop", "The shop to add items to", true)
                                 .addOption(OptionType.STRING, "items", "The items to add to the shop", true),
                         new SubcommandData("delete", "Delete a shop"),
                         new SubcommandData("sell", "Sell an item from a shop"),
-                        new SubcommandData("wipe", "Wipe all the shops"))
+                        new SubcommandData("wipe", "Wipe all the shops"),
+                        new SubcommandData("generate", "Generate all shop data"))
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_TTS)));
         commandData.add(Commands.slash("rewards", "Calculate rewards for a quest")
-                        .addOption(OptionType.NUMBER, "time", "The length of the quest, in hours", true)
-                        .addOption(OptionType.NUMBER, "t1", "The number of tier 1 players", true)
-                        .addOption(OptionType.NUMBER, "t2", "The number of tier 2 players", true)
-                        .addOption(OptionType.NUMBER, "t3", "The number of tier 3 players", true)
-                        .addOption(OptionType.NUMBER, "t4", "The number of tier 4 players", true)
-                        .addOption(OptionType.STRING, "difficulty", "The difficulty of the quest", true, true)
-                        .addOption(OptionType.BOOLEAN, "vc", "Was this a VC quest?", true)
-//                .addOption(OptionType.NUMBER, "rating", "The average rating of the quest (out of 10)", true)
+                .addOption(OptionType.NUMBER, "time", "The length of the quest, in hours", true)
+                .addOption(OptionType.NUMBER, "t1", "The number of tier 1 players", true)
+                .addOption(OptionType.NUMBER, "t2", "The number of tier 2 players", true)
+                .addOption(OptionType.NUMBER, "t3", "The number of tier 3 players", true)
+                .addOption(OptionType.NUMBER, "t4", "The number of tier 4 players", true)
+                .addOption(OptionType.STRING, "difficulty", "The difficulty of the quest", true, true)
+                .addOption(OptionType.STRING, "quest-type", "Was this a VC quest?", true, true)
         );
         commandData.add(Commands.slash("items", "Generate the minimum items for your quest")
                 .addOption(OptionType.INTEGER, "tier", "The tier of the players", true)
@@ -75,14 +75,15 @@ public class CommandManager extends ListenerAdapter {
                                 .addOption(OptionType.STRING, "reason", "The reason to give the DMXP", true))
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.VOICE_MUTE_OTHERS)));
         commandData.add(Commands.slash("blackmarket", "View the available items from the black market"));
-        commandData.add(Commands.slash("market", "Manage the Black Market")
+        commandData.add(Commands.slash("black-market-admin", "Manage the Black Market")
                 .addSubcommands(
                         new SubcommandData("add", "Add items to a shop")
                                 .addOption(OptionType.STRING, "shop", "The shop to add items to", true)
                                 .addOption(OptionType.STRING, "items", "The items to add to the shop", true),
                         new SubcommandData("delete", "Delete a shop"),
                         new SubcommandData("sell", "Sell an item from a shop"),
-                        new SubcommandData("wipe", "Delete all shops"))
+                        new SubcommandData("wipe", "Delete all shops"),
+                        new SubcommandData("generate", "Generate the shops for the week"))
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_TTS)));
         commandData.add(Commands.slash("timestamp", "Generate a formatted timestamp")
                 .addOption(OptionType.STRING, "timezone", "The timezone the time is in", true, true)
@@ -120,7 +121,8 @@ public class CommandManager extends ListenerAdapter {
                                 .addOption(OptionType.STRING, "item3", "The third item that was traded"),
                         new SubcommandData("remove", "Remove a specific item. Admin-only.")
                                 .addOption(OptionType.STRING, "section", "The section to remove the item from", true, true)
-                                .addOption(OptionType.STRING, "item", "The item to remove", true, true))
+                                .addOption(OptionType.STRING, "item", "The item to remove", true, true),
+                        new SubcommandData("generate", "Generate the shops for the week"))
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_TTS)));
         commandData.add(Commands.slash("downtime", "Manage your character's downtime")
                 .addSubcommands(
@@ -144,14 +146,14 @@ public class CommandManager extends ListenerAdapter {
                                 .addOption(OptionType.STRING, "character", "The character that is doing the action", true, true)
                                 .addOption(OptionType.STRING, "action", "The action you are working on", true, true)
                                 .addOption(OptionType.INTEGER, "amount", "The amount of downtime you are putting towards the action", true),
-                        new SubcommandData("check-progress", "Check the progress of your downtime progress actions"),
-                        new SubcommandData("craft", "Craft an item using downtime")
-                                .addOption(OptionType.STRING, "character", "The character to craft on", true, true)
-                                .addOption(OptionType.STRING, "item", "The item you will be crafting", true, true)
-                                .addOption(OptionType.STRING, "downtime-amount", "The amount of downtime to use. The excess used will be refunded.", true)
-                                .addOption(OptionType.BOOLEAN, "level-10-artificer", "Whether or not your character has the level 10 artificer ability"),
-                        new SubcommandData("remove-character", "Remove a character from the downtime tracking")
-                                .addOption(OptionType.STRING, "character", "The character to remove", true, true)
+                        new SubcommandData("check-progress", "Check the progress of your downtime progress actions")
+//                        new SubcommandData("craft", "Craft an item using downtime")
+//                                .addOption(OptionType.STRING, "character", "The character to craft on", true, true)
+//                                .addOption(OptionType.STRING, "item", "The item you will be crafting", true, true)
+//                                .addOption(OptionType.STRING, "downtime-amount", "The amount of downtime to use. The excess used will be refunded.", true)
+//                                .addOption(OptionType.BOOLEAN, "level-10-artificer", "Whether or not your character has the level 10 artificer ability"),
+//                        new SubcommandData("remove-character", "Remove a character from the downtime tracking")
+//                                .addOption(OptionType.STRING, "character", "The character to remove", true, true)
 //                        new SubcommandData("daily", "Add daily downtime to all characters")
 //                                .addOption(OptionType.STRING, "character", "The character to remove downtime from", true, true)
 //                                .addOption(OptionType.STRING, "reason", "The reason to remove downtime", true)
@@ -176,6 +178,16 @@ public class CommandManager extends ListenerAdapter {
         commandData.add(Commands.slash("compute-dmxp", "Compute the DMXP you get from a quest, given the time and rating")
                 .addOption(OptionType.NUMBER, "time", "The time the quest ran for", true)
                 .addOption(OptionType.NUMBER, "average-rating", "The average rating out of 10", true));
+        commandData.add(Commands.slash("sheet", "Utilities for Sheet Checkers").addSubcommands(
+                        new SubcommandData("approve", "Approve a character's sheet")
+                                .addOption(OptionType.USER, "player", "The player who is being approved", true)
+                                .addOption(OptionType.STRING, "character", "The character name being approved", true)
+                                .addOption(OptionType.STRING, "sheet-link", "The link of the sheet being approved", true),
+                        new SubcommandData("find", "See who has a character. Also does partial matches.")
+                                .addOption(OptionType.STRING, "character", "The character name to look up.", true))
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_ROLES)));
+        commandData.add(Commands.message("Inspect").setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)));
+        commandData.add(Commands.message("Inspect (Bytes)").setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)));
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 }

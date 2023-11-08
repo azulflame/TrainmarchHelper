@@ -9,6 +9,7 @@ public class DmxpCommand extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("dmxp")) {
+            System.out.println(event.getCommandString());
             if (event.getSubcommandName().equals("check")) {
                 Member m = event.getOption("target").getAsMember();
                 event.reply(m.getEffectiveName() + Dmxp.check(m.getId(), m.getEffectiveName())).setEphemeral(true).queue();

@@ -27,7 +27,7 @@ public class MarketCommand extends ListenerAdapter {
                 event.reply("Please select a shop").setEphemeral(true).addActionRow(menu).queue();
             }
         }
-        if (command.equals("market") && subcommand != null) {
+        if (command.equals("black-market-admin") && subcommand != null) {
             if (!event.getChannel().getId().equals("845160869772132402") && !event.getChannel().getId().equals("1015883484545433685")) {
                 event.reply("This must be run in the <#845160869772132402> channel").setEphemeral(true).queue();
             } else {
@@ -59,6 +59,12 @@ public class MarketCommand extends ListenerAdapter {
                     event.deferReply().queue();
                     Shops.getShop(Market.BLACK_MARKET).resetAll();
                     event.getHook().sendMessage("All shops have been reset").queue();
+                }
+                if (subcommand.equals("generate")) {
+                    event.deferReply().queue();
+                    Shops.getShop(Market.BLACK_MARKET).resetAll();
+                    Shops.getShop(Market.BLACK_MARKET).generate();
+                    event.getHook().sendMessage("Shops have been reset and generated").queue();
                 }
             }
         }
@@ -93,7 +99,7 @@ public class MarketCommand extends ListenerAdapter {
         }
         else if (event.getComponentId().equals("sell-market-items")) {
             String shop = event.getValues().get(0).split(":")[0];
-            String item = event.getValues().get(0).split(":")[1];
+            String item = event.getValues().get(0).split(":")[1] + ":" + event.getValues().get(0).split(":")[2];
             String message = "Unable to sell item " + item + " from the " + shop + " shop.";
             if (Shops.getShop(Market.BLACK_MARKET).sell(shop, item)) {
                 message = "Sold " + item + " from the " + shop + " shop.";

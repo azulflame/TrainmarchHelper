@@ -27,7 +27,7 @@ public class ShopCommand extends ListenerAdapter {
                 event.reply("Please select a shop").setEphemeral(true).addActionRow(menu).queue();
             }
         }
-        if (command.equals("shop") && subcommand != null) {
+        if (command.equals("bazaar-admin") && subcommand != null) {
             if (!event.getChannel().getId().equals("945066980577267752") && !event.getChannel().getId().equals("1015883484545433685")) {
                 event.reply("This must be run in the <#945066980577267752> channel").setEphemeral(true).queue();
             } else {
@@ -54,9 +54,14 @@ public class ShopCommand extends ListenerAdapter {
                     }
                 }
                 else if (subcommand.equals("wipe")) {
-                    event.deferReply(false).queue();
                     Shops.getShop(Market.BAZAAR).resetAll();
                     event.getHook().sendMessage("Deleted all items from the bazaar.").queue();
+                }
+                else if(subcommand.equals("generate"))
+                {
+                    Shops.getShop(Market.BAZAAR).resetAll();
+                    Shops.getShop(Market.BAZAAR).generate();
+                    event.getHook().sendMessage("Shops have been wiped and generated.").queue();
                 }
             }
         }
@@ -91,7 +96,7 @@ public class ShopCommand extends ListenerAdapter {
         }
         else if (event.getComponentId().equals("sell-items")) {
             String shop = event.getValues().get(0).split(":")[0];
-            String item = event.getValues().get(0).split(":")[1];
+            String item = event.getValues().get(0).split(":")[1] + ":" + event.getValues().get(0).split(":")[2];
             String message = "Unable to sell item " + item + " from the " + shop + " shop.";
             if (Shops.getShop(Market.BAZAAR).sell(shop, item)) {
                 message = "Sold " + item + " from the " + shop + " shop.";
